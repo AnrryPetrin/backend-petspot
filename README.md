@@ -28,6 +28,7 @@ PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e ger
   ```
 - **Resposta de Sucesso:** `201 Created`
 - **Resposta de Erro:** `409 Conflict` se um pet duplicado já existir.
+![Screenshot from 2024-06-03 08-42-45](https://github.com/AnrryPetrin/backend_petspot/assets/108158140/2fe31f04-fe49-4d60-9cbc-121094191b08)
 
 ### Consultas de Pets
 
@@ -39,6 +40,7 @@ PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e ger
   - `ownerId`: ID do dono.
 - **Resposta de Sucesso:** `200 OK`
 - **Resposta de Erro:** `404 Not Found` se o dono não for encontrado.
+![Screenshot from 2024-06-03 08-42-56](https://github.com/AnrryPetrin/backend_petspot/assets/108158140/7af34913-bb97-4920-a55a-119572e2aede)
 
 #### Buscar Pets por Nome
 - **URL:** `/petspot/meuspets/{ownerId}/buscarpet`
@@ -49,6 +51,7 @@ PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e ger
   - `petName`: Nome parcial do pet.
 - **Resposta de Sucesso:** `200 OK`
 - **Resposta de Erro:** `404 Not Found` se nenhum pet for encontrado.
+![Screenshot from 2024-06-03 08-43-02](https://github.com/AnrryPetrin/backend_petspot/assets/108158140/0ffa996a-e743-4084-bb53-6dadfb09ab71)
 
 ### Atualizações de Pets
 
@@ -67,6 +70,7 @@ PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e ger
   ```
 - **Resposta de Sucesso:** `200 OK`
 - **Resposta de Erro:** `403 Forbidden` se o pet não pertencer ao dono.
+![Screenshot from 2024-06-03 08-43-07](https://github.com/AnrryPetrin/backend_petspot/assets/108158140/56665322-be72-437a-bb2a-ffb318391a76)
 
 #### Atualizar Peso de um Pet
 - **URL:** `/petspot/meuspets/{ownerId}/atualizarpeso/{petId}`
@@ -83,6 +87,7 @@ PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e ger
   ```
 - **Resposta de Sucesso:** `200 OK`
 - **Resposta de Erro:** `403 Forbidden` se o pet não pertencer ao dono.
+![Screenshot from 2024-06-03 08-43-12](https://github.com/AnrryPetrin/backend_petspot/assets/108158140/e31cf346-4301-44e5-b2e1-b71f8d4b9c69)
 
 ## Instalação e Execução
 
@@ -97,7 +102,7 @@ PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e ger
    ```
 2. Navegue até o diretório do projeto:
    ```bash
-   cd petspot
+   cd backend_petspot
    ```
 
 ### Compilação e Execução
