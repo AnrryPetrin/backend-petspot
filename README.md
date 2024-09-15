@@ -1,4 +1,4 @@
-# PetSpot API
+# Petspot API
 
 PetSpot é uma API RESTful desenvolvida usando Spring Boot para o cadastro e gerenciamento de pets.
 
