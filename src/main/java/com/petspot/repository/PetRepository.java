@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
-public interface PetRepository extends JpaRepository<Pet, String> {
+public interface PetRepository extends JpaRepository<Pet, UUID> {
     List<Pet> findByPetNameContainingIgnoreCase(String petName);
-    
-    boolean existsByPetNameAndPetSpecieAndPetGenderAndPetRaceAndNeuteredAndBehaviorAndPetSizeAndVaccinatedAndPetBirthday(
-            String petName, String petSpecie, Integer petGender, String petRace, Boolean neutered, String behavior, String petSize, Boolean vaccinated, Date petBirthday);
+
+    boolean existsByPetNameAndPetSpeciesAndPetGenderAndPetBreedAndNeuteredAndBehaviorAndPetSizeAndVaccinatedAndPetBirthday(
+            String petName, String petSpecies, Integer petGender, String petBreed, Boolean neutered, String behavior, String petSize, Boolean vaccinated, Date petBirthday);
 }
