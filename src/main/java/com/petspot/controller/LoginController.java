@@ -20,7 +20,7 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity<Map<String, String>> signIn(@RequestBody @Valid LoginDTO loginDTO) {
-        Login auth = repository.findByEmailAndPasswordLogin(loginDTO.email(), loginDTO.senha());
+        Login auth = repository.findByEmailAndPassword(loginDTO.email(), loginDTO.password());
 
         if (auth != null) {
             // Retorna o ID do tutor no corpo da resposta
@@ -30,7 +30,7 @@ public class LoginController {
         }
 
         Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("error", "Credenciais inválidas, verifique os dados e tente novamente.");
+        errorResponse.put("error", "Invalid credentials, please check your details and try again.");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 }
