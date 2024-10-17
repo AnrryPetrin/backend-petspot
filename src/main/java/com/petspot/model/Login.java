@@ -5,38 +5,42 @@ import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 import com.petspot.dto.register.RegisterDTO;
+import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "id", "email" })
-@Entity(name = "Login")
+@EqualsAndHashCode(of = {"id", "email"})
+@Entity
 @Table(name = "login")
 public class Login {
+
     @Id
+    @GeneratedValue
     @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    private String id;
+    private UUID id;
 
     @Email
+    @Column(nullable = false, unique = true)
     private String email;
 
-    private String passwordLogin;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    private String typeOfUser;
+    @Column(name = "user_type", nullable = false)
+    private String userType;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pet_owner_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_owner_id", referencedColumnName = "id")
     private PetOwner petOwner;
 
     public Login(RegisterDTO registerDTO) {
         this.email = registerDTO.email();
-        this.passwordLogin = registerDTO.senha();
-        this.typeOfUser = registerDTO.usuario();
+        this.password = registerDTO.password();
+        this.userType = registerDTO.user();
     }
 
-    public String getOwnerId() {
+    public UUID getOwnerId() {
         return petOwner != null ? petOwner.getId() : null;
     }
-    
 }
