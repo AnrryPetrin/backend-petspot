@@ -8,37 +8,49 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "pet_owner")
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode(of = { "id" })
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class PetOwner {
     @Id
+    @GeneratedValue
     @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    private String id;
+    private UUID id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
+    @Column(nullable = false)
     private String country;
 
+    @Column(nullable = false, unique = true)
     private String phone;
 
+    @Column(name = "newsletter_check")
     private boolean newsletterCheck;
 
-    @OneToOne(mappedBy = "petOwner")
+    @OneToOne(mappedBy = "petOwner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Login login;
 
     @ManyToMany
-    @JoinTable(name = "pets_client_tutor", joinColumns = @JoinColumn(name = "pet_owner_id"), inverseJoinColumns = @JoinColumn(name = "pet_id"))
-    private Set<Pet> pet = new HashSet<>();
+    @JoinTable(
+            name = "pets_client_tutor",
+            joinColumns = @JoinColumn(name = "pet_owner_id"),
+            inverseJoinColumns = @JoinColumn(name = "pet_id")
+    )
+    private Set<Pet> pets = new HashSet<>();
 
     public PetOwner(RegisterDTO registerDTO) {
         this.name = registerDTO.nome();
