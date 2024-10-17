@@ -2,22 +2,27 @@ package com.petspot.dto.pet;
 
 import com.petspot.model.Pet;
 import java.util.Date;
+import java.util.UUID;
 
 public record SavedDatasPetDTO(
-        String id,
-        String nome,
-        String especie,
-        String peso,
-        Integer genero,
-        String raca,
-        Boolean castrado,
-        String comportamento,
-        String porte,
-        Boolean vacinado,
-        Date dataDeNascimento) {
-    
+        UUID id,
+        String name,
+        String species,
+        String weight,
+        Integer gender,
+        String breed,
+        Boolean neutered,
+        String behavior,
+        String size,
+        Boolean vaccinated,
+        Date birthDate) {
+
     public SavedDatasPetDTO(Pet pet) {
-        this(pet.getId(), pet.getPetName(), pet.getPetSpecie(), pet.getPetWeight(), pet.getPetGender(), pet.getPetRace(),
-             pet.getNeutered(), pet.getBehavior(), pet.getPetSize(), pet.getVaccinated(), pet.getPetBirthday());
+        this(pet.getId(), pet.getPetName(), pet.getPetSpecies(), pet.getPetWeight(), pet.getPetGender(), pet.getPetBreed(),
+                pet.getNeutered(), pet.getBehavior(), pet.getPetSize(), pet.getVaccinated(), pet.getPetBirthday());
+    }
+
+    public UUID getId() {
+        return id;
     }
 }
