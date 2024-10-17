@@ -8,89 +8,65 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "pet")
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode(of = { "id" })
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Pet {
     @Id
+    @GeneratedValue
     @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    private String id;
+    private UUID id;
 
+    @Column(name = "pet_name", nullable = false)
     private String petName;
+
+    @Column(name = "pet_weight")
     private String petWeight;
+
+    @Column(name = "pet_birthday")
+    @Temporal(TemporalType.DATE)
     private Date petBirthday;
-    private String petSpecie;
-    private String petRace;
+
+    @Column(name = "pet_species", nullable = false)
+    private String petSpecies;
+
+    @Column(name = "pet_breed")
+    private String petBreed;
+
+    @Column(name = "pet_gender")
     private Integer petGender;
+
+    @Column(nullable = false)
     private Boolean neutered;
+
+    @Column
     private String behavior;
+
+    @Column(name = "pet_size")
     private String petSize;
+
+    @Column(nullable = false)
     private Boolean vaccinated;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "pet")
+    @ManyToMany(mappedBy = "pets", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PetOwner> petOwners = new HashSet<>();
 
     public Pet(RegisterPetDTO petDTO) {
         this.petName = petDTO.nome();
         this.petBirthday = petDTO.getDate();
         this.petWeight = petDTO.peso();
-        this.petSpecie = petDTO.especie();
-        this.petRace = petDTO.raca();
+        this.petSpecies = petDTO.especie();
+        this.petBreed = petDTO.raca();
         this.petGender = petDTO.genero();
         this.neutered = petDTO.castrado();
         this.behavior = petDTO.comportamento();
         this.petSize = petDTO.porte();
         this.vaccinated = petDTO.vacinado();
-    }
-
-    // Getters e setters
-    public String getId() {
-        return id;
-    }
-    
-    public String getPetName() {
-        return petName;
-    }
-    
-    public String getPetWeight() {
-        return petWeight;
-    }
-    
-    public Date getPetBirthday() {
-        return petBirthday;
-    }
-    
-    public String getPetSpecie() {
-        return petSpecie;
-    }
-    
-    public String getPetRace() {
-        return petRace;
-    }
-    
-    public Integer getPetGender() {
-        return petGender;
-    }
-    
-    public Boolean getNeutered() {
-        return neutered;
-    }
-    
-    public String getBehavior() {
-        return behavior;
-    }
-    
-    public String getPetSize() {
-        return petSize;
-    }
-    
-    public Boolean getVaccinated() {
-        return vaccinated;
     }
 }
