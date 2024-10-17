@@ -9,31 +9,31 @@ import java.util.Date;
 
 public record RegisterDTO(
         @Email String email,
-        @NotBlank String senha,
-        @NotBlank String repetirSenha,
-        @NotBlank String usuario,
-        @NotBlank String nome,
-        @NotBlank String sobrenome,
-        @NotBlank String dataDeNascimento,
-        @NotBlank String pais,
-        @NotBlank String telefone,
+        @NotBlank String password,
+        @NotBlank String repeatPassword,
+        @NotBlank String user,
+        @NotBlank String firstName,
+        @NotBlank String lastName,
+        @NotBlank String dateOfBirth,
+        @NotBlank String country,
+        @NotBlank String phone,
         boolean newsletterCheck) {
 
     public Date getDate() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-            return format.parse(dataDeNascimento);
+            return format.parse(dateOfBirth);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Invalid date format. Please use dd/MM/yyyy.", e);
         }
     }
 
-    public String senha() {
-        return senha;
+    public String password() {
+        return password;
     }
 
-    public String repetirSenha() {
-        return repetirSenha;
+    public String repeatPassword() {
+        return repeatPassword;
     }
 }
