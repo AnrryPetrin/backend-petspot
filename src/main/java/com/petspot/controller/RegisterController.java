@@ -23,23 +23,22 @@ public class RegisterController {
 
     @PostMapping
     public ResponseEntity<EmailDTO> register(@RequestBody @Validated RegisterDTO registerDTO,
-            UriComponentsBuilder uriBuilder) throws PasswordsNotMatchingException, DuplicateEmailException, PasswordSizeException {
+                                             UriComponentsBuilder uriBuilder) throws PasswordsNotMatchingException, DuplicateEmailException, PasswordSizeException {
 
         // Verifica se o e-mail já está cadastrado
-        boolean emailFounded = loginRepository.existsByEmail(registerDTO.email());
-        if (emailFounded) {
-            throw new DuplicateEmailException("E-mail já cadastrado");
+        boolean emailExists = loginRepository.existsByEmail(registerDTO.email());
+        if (emailExists) {
+            throw new DuplicateEmailException("Email is already registered.");
         }
 
         // Verifica se as senhas coincidem
-        if (!registerDTO.senha().equals(registerDTO.repetirSenha())) {
-            throw new PasswordsNotMatchingException("As senhas não coincidem.");
+        if (!registerDTO.password().equals(registerDTO.repeatPassword())) {
+            throw new PasswordsNotMatchingException("Passwords do not match.");
         }
 
-        if (registerDTO.senha().length() < 8 || registerDTO.repetirSenha().length() < 8) {
-            throw new PasswordSizeException("A senha deve conter no mínimo 8 caracteres");
+        if (registerDTO.password().length() < 8) {
+            throw new PasswordSizeException("Password must be at least 8 characters long.");
         }
-
 
         // Cria um novo objeto PetOwner a partir do DTO
         PetOwner petOwner = new PetOwner(registerDTO);
@@ -53,7 +52,6 @@ public class RegisterController {
 
         // Cria a URI para o novo recurso criado
         var uri = uriBuilder.path("/profile/{id}").buildAndExpand(login.getId()).toUri();
-
 
         // Retorna a resposta com a URI do novo recurso e o e-mail do usuário
         return ResponseEntity.created(uri).body(new EmailDTO(login.getEmail()));
